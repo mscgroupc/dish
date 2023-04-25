@@ -1,13 +1,9 @@
 import React from 'react'
 import './App.css'
-import { Button } from '@mui/material'
+import { Routers } from './Routes'
 
 function App() {
-  return (
-    <>
-      <Button variant='contained'>Contained</Button>
-    </>
-  )
+  return <Routers />
 }
 
 export default App
