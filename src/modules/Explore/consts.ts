@@ -1,0 +1,1 @@
+export const EXPLORE_SIDE_PANEL_WIDTH = 240;
