@@ -1,20 +1,34 @@
 import { Box, Grid, Toolbar } from '@mui/material';
+import { useQuery } from 'react-query';
+import { Recipe } from '../../../types';
+import { Loading } from '../../Loading/Loading';
 import { EXPLORE_SIDE_PANEL_WIDTH } from '../consts';
-import { SearchResultsGridItem } from './SearchResultsGridItem';
+import { SearchGridItem } from './SearchGridItem';
 
-export const ExplorerSearchResults = () => (
-  <Box
-    component='main'
-    sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${EXPLORE_SIDE_PANEL_WIDTH}px)` } }}
-  >
-    <Toolbar />
+export const ExplorerSearchResults = () => {
+  // ToDO: Use Filters
+  const { data: { results: recipes } = {}, isFetching } = useQuery(['test'], async () => {
+    const res = await fetch(
+      'https://api.spoonacular.com/recipes/complexSearch?apiKey=3a919f863b6f473e93b2473cdd0b6e3d&query=pasta&maxFat=25&number=16',
+    );
+    return res.json();
+  });
 
-    <Grid container spacing={3}>
-      {Array.from(Array(16)).map((_, index) => (
-        <Grid item key={index}>
-          <SearchResultsGridItem />
+  return (
+    <Box
+      component='main'
+      sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${EXPLORE_SIDE_PANEL_WIDTH}px)` } }}
+    >
+      <Toolbar />
+      {isFetching || !recipes ? (
+        <Loading />
+      ) : (
+        <Grid container spacing={3}>
+          {recipes.map(({ id, title, image }: Recipe) => (
+            <SearchGridItem id={id} title={title} image={image} key={id} />
+          ))}
         </Grid>
-      ))}
-    </Grid>
-  </Box>
-);
+      )}
+    </Box>
+  );
+};
