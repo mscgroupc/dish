@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
-import { FilterSidePanel } from './Components/FilterSidePanel';
-import { ExplorerSearchResults } from './Components/ExplorerSearchResults';
+import { FilterSidePanel } from './components/FilterSidePanel';
+import { ExplorerSearchResults } from './components/ExplorerSearchResults';
 
 export const Explore = () => {
   return (

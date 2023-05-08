@@ -1,9 +1,9 @@
 import { Box, Grid, Toolbar } from '@mui/material';
 import { useQuery } from 'react-query';
+import { RecipeCard } from '../../../components/RecipeCard';
 import { Recipe } from '../../../types';
 import { Loading } from '../../Loading/Loading';
 import { EXPLORE_SIDE_PANEL_WIDTH } from '../consts';
-import { SearchGridItem } from './SearchGridItem';
 
 export const ExplorerSearchResults = () => {
   // ToDO: Use Filters
@@ -25,7 +25,9 @@ export const ExplorerSearchResults = () => {
       ) : (
         <Grid container spacing={3}>
           {recipes.map(({ id, title, image }: Recipe) => (
-            <SearchGridItem id={id} title={title} image={image} key={id} />
+            <Grid item key={id}>
+              <RecipeCard id={id} title={title} image={image} />
+            </Grid>
           ))}
         </Grid>
       )}
