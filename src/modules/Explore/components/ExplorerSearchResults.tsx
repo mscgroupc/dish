@@ -7,12 +7,15 @@ import { EXPLORE_SIDE_PANEL_WIDTH } from '../consts';
 
 export const ExplorerSearchResults = () => {
   // ToDO: Use Filters
-  const { data: { results: recipes } = {}, isFetching } = useQuery(['test'], async () => {
-    const res = await fetch(
-      'https://api.spoonacular.com/recipes/complexSearch?apiKey=3a919f863b6f473e93b2473cdd0b6e3d&query=pasta&maxFat=25&number=16',
-    );
-    return res.json();
-  });
+  const { data: { results: recipes } = {}, isFetching } = useQuery(
+    ['recipes', 'complexSearch'],
+    async () => {
+      const res = await fetch(
+        'https://api.spoonacular.com/recipes/complexSearch?apiKey=3a919f863b6f473e93b2473cdd0b6e3d&query=pasta&maxFat=25&number=16',
+      );
+      return res.json();
+    },
+  );
 
   return (
     <Box
