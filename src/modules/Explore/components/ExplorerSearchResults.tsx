@@ -4,14 +4,15 @@ import { RecipeCard } from '../../../components/RecipeCard';
 import { Recipe } from '../../../types';
 import { Loading } from '../../Loading/Loading';
 import { EXPLORE_SIDE_PANEL_WIDTH } from '../consts';
+import { Filters } from './types';
 
-export const ExplorerSearchResults = () => {
-  // ToDO: Use Filters
+export const ExplorerSearchResults = ({ filters }: { filters: Filters }) => {
+  const { type, diet } = filters;
   const { data: { results: recipes } = {}, isFetching } = useQuery(
-    ['recipes', 'complexSearch'],
+    ['recipes', 'complexSearch', filters],
     async () => {
       const res = await fetch(
-        'https://api.spoonacular.com/recipes/complexSearch?apiKey=3a919f863b6f473e93b2473cdd0b6e3d&query=pasta&maxFat=25&number=16',
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=3a919f863b6f473e93b2473cdd0b6e3d&type=${type}&diet=${diet}`,
       );
       return res.json();
     },
