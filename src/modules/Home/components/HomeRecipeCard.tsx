@@ -9,7 +9,6 @@ export const HomeRecipeCard = () => {
     );
     return res.json();
   });
-  console.log(recipes);
 
   if (isFetching || !recipes) {
     return <Loading />;
