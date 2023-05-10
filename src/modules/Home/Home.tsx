@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { HomeRecipeCard } from './components/HomeRecipeCard';
 
 const useStyles = makeStyles(() => ({
