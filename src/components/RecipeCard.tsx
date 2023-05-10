@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { RecipeCardProps } from '../modules/Explore/components/types';
+import { useQuery } from 'react-query';
 
 const useStyles = makeStyles({
   root: {
@@ -14,10 +15,6 @@ const useStyles = makeStyles({
     borderRadius: '16px',
     overflow: 'hidden',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    transition: '0.3s',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
   media: {
     height: 200,
@@ -41,10 +38,19 @@ const useStyles = makeStyles({
   },
 });
 
-export const RecipeCard = ({ title, image }: RecipeCardProps) => {
+export const RecipeCard = ({ id, title, image }: RecipeCardProps) => {
   const classes = useStyles();
-  const discription =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod tristique urna, euplacerat justo elementum vel. Nulla facilisi. Nullam a justo at tortor rhoncus auctorvel ac turpis.';
+  const [expanded, setExpanded] = useState(false);
+
+  const { data: { summary } = {}, isFetching } = useQuery(['recipes', 'summary', id], async () => {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/summary?apiKey=3a919f863b6f473e93b2473cdd0b6e3d&query=pasta&maxFat=25&number=16`,
+    );
+    return res.json();
+  });
+
+  const summaryMarkup = { __html: summary };
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -59,7 +65,22 @@ export const RecipeCard = ({ title, image }: RecipeCardProps) => {
           </Grid>
           <div className={classes.divider}></div>
           <Typography variant='body2' color='textSecondary' component='p'>
-            {discription}
+            {isFetching ? (
+              'Loading...'
+            ) : (
+              <>
+                <div
+                  dangerouslySetInnerHTML={
+                    expanded ? summaryMarkup : { __html: `${summary.substring(0, 200)}...` }
+                  }
+                />
+                {summary.length > 200 && (
+                  <span onClick={() => setExpanded(!expanded)}>
+                    {expanded ? 'Read less' : 'Read more'}
+                  </span>
+                )}
+              </>
+            )}
           </Typography>
         </div>
       </CardActionArea>
