@@ -1,12 +1,16 @@
 import Box from '@mui/material/Box';
 import { FilterSidePanel } from './components/FilterSidePanel';
 import { ExplorerSearchResults } from './components/ExplorerSearchResults';
+import { useState } from 'react';
+import { Filters } from './components/types';
 
 export const Explore = () => {
+  const [filters, setFilters] = useState<Filters>({ type: undefined, diet: undefined });
+
   return (
     <Box sx={{ display: 'flex' }}>
-      <FilterSidePanel />
-      <ExplorerSearchResults />
+      <FilterSidePanel filters={filters} setFilters={setFilters} />
+      <ExplorerSearchResults filters={filters} />
     </Box>
   );
 };
