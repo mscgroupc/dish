@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { Filters } from '../modules/Explore/components/types';
 
-export const useComplexSearch = ({ filters }: { filters: Filters }) => {
+export const useComplexSearch = (filters: Filters) => {
   const { type, diet } = filters;
   return useQuery(['recipes', 'complexSearch', filters], async () => {
     const res = await fetch(

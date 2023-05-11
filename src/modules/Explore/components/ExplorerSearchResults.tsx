@@ -7,7 +7,7 @@ import { EXPLORE_SIDE_PANEL_WIDTH } from '../consts';
 import { Filters } from './types';
 
 export const ExplorerSearchResults = ({ filters }: { filters: Filters }) => {
-  const { data: { results: recipes } = {}, isFetching } = useComplexSearch({ filters });
+  const { data: { results: recipes } = {}, isFetching } = useComplexSearch(filters);
 
   return (
     <Box
