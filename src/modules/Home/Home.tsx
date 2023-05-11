@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
 import { HomeRecipeCard } from './components/HomeRecipeCard';
+import { ExploreButton } from './components/ExploreButton';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -47,13 +48,13 @@ export const Home = () => {
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <Typography variant='h1' className={classes.title}>
+        <Typography variant='h3' className={classes.title}>
           Welcome to Dish
         </Typography>
-        <Typography gutterBottom variant='h2' className={classes.subtitle}>
+        <Typography gutterBottom variant='h4' className={classes.subtitle}>
           Discover delicious new dishes and old favorites
         </Typography>
-        <Typography gutterBottom variant='body1'>
+        <Typography gutterBottom variant='body2'>
           At Dish, we&apos;re passionate about food and helping you find your next favorite recipe.
           Search our extensive collection of culinary categories, from comfort food classics to
           exotic international dishes. Whether you&apos;re a seasoned chef or just starting out in
@@ -61,6 +62,7 @@ export const Home = () => {
           let your taste buds take the lead!
         </Typography>
         <HomeRecipeCard />
+        <ExploreButton />
       </div>
     </div>
   );
