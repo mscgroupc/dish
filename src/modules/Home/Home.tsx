@@ -1,59 +1,16 @@
-import React from 'react';
-import { makeStyles } from '@mui/styles';
+import styled from 'styled-components';
 import { Typography } from '@mui/material';
 import { HomeRecipeCard } from './components/HomeRecipeCard';
 import { ExploreButton } from './components/ExploreButton';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    backgroundImage: 'url("/katie-smith-uQs1802D0CQ-unsplash.jpg")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center center',
-    backgroundRepeat: 'no-repeat',
-  },
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: '800px',
-    padding: '2rem',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: '8px',
-    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-    textAlign: 'center',
-  },
-  title: {
-    fontSize: '4rem',
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: '1rem',
-    textShadow: '2px 2px #fff',
-  },
-  subtitle: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: '2rem',
-    textShadow: '2px 2px #fff',
-  },
-}));
-
 export const Home = () => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <div className={classes.content}>
-        <Typography variant='h3' className={classes.title}>
-          Welcome to Dish
-        </Typography>
-        <Typography gutterBottom variant='h4' className={classes.subtitle}>
+    <RootDiv>
+      <ContentDiv>
+        <TitleTypography variant='h3'>Welcome to Dish</TitleTypography>
+        <SubtitleTypography gutterBottom variant='h4'>
           Discover delicious new dishes and old favorites
-        </Typography>
+        </SubtitleTypography>
         <Typography gutterBottom variant='body2'>
           At Dish, we&apos;re passionate about food and helping you find your next favorite recipe.
           Search our extensive collection of culinary categories, from comfort food classics to
@@ -63,7 +20,46 @@ export const Home = () => {
         </Typography>
         <HomeRecipeCard />
         <ExploreButton />
-      </div>
-    </div>
+      </ContentDiv>
+    </RootDiv>
   );
 };
+
+const RootDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('/katie-smith-uQs1802D0CQ-unsplash.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+`;
+
+const ContentDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+`;
+
+const TitleTypography = styled(Typography)`
+  font-size: 4rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px #fff;
+`;
+
+const SubtitleTypography = styled(Typography)`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px #fff;
+`;

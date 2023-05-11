@@ -1,45 +1,10 @@
+import styled from 'styled-components';
 import { useState } from 'react';
-import { makeStyles } from '@mui/styles';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import { RecipeCardProps } from '../modules/Explore/components/types';
 import { useQuery } from 'react-query';
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 350,
-    margin: 'auto',
-    borderRadius: '16px',
-    overflow: 'hidden',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  },
-  media: {
-    height: 200,
-    objectFit: 'cover',
-  },
-  content: {
-    padding: '16px',
-    backgroundColor: '#f4f4f4',
-    borderTop: '1px solid #e2e2e2',
-  },
-  title: {
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-    color: '#222',
-  },
-  divider: {
-    width: '100%',
-    height: '2px',
-    backgroundColor: '#e2e2e2',
-    margin: '1rem 0',
-  },
-});
+import { Card, CardActionArea, CardMedia, Grid, Typography } from '@mui/material';
+import { RecipeCardProps } from '../modules/Explore/components/types';
 
 export const RecipeCard = ({ id, title, image }: RecipeCardProps) => {
-  const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   const { data: { summary } = {}, isFetching } = useQuery(['recipes', 'summary', id], async () => {
@@ -52,18 +17,16 @@ export const RecipeCard = ({ id, title, image }: RecipeCardProps) => {
   const summaryMarkup = { __html: summary };
 
   return (
-    <Card className={classes.root}>
+    <RootCard>
       <CardActionArea>
-        <CardMedia className={classes.media} image={image} title={title} />
-        <div className={classes.content}>
+        <MediaCardMedia image={image} title={title} />
+        <ContentDiv>
           <Grid container alignItems='center'>
             <Grid item xs>
-              <Typography variant='h5' component='h2' className={classes.title}>
-                {title}
-              </Typography>
+              <TitleTypography variant='h5'>{title}</TitleTypography>
             </Grid>
           </Grid>
-          <div className={classes.divider}></div>
+          <DividerDiv />
           <Typography variant='body2' color='textSecondary' component='p'>
             {isFetching ? (
               'Loading...'
@@ -82,8 +45,40 @@ export const RecipeCard = ({ id, title, image }: RecipeCardProps) => {
               </>
             )}
           </Typography>
-        </div>
+        </ContentDiv>
       </CardActionArea>
-    </Card>
+    </RootCard>
   );
 };
+
+const RootCard = styled(Card)`
+  max-width: 350px;
+  margin: auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const MediaCardMedia = styled(CardMedia)`
+  height: 200px;
+  object-fit: cover;
+`;
+
+const ContentDiv = styled.div`
+  padding: 16px;
+  background-color: #f4f4f4;
+  border-top: 1px solid #e2e2e2;
+`;
+
+const TitleTypography = styled(Typography)`
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222;
+`;
+
+const DividerDiv = styled.div`
+  width: 100%;
+  height: 2px;
+  background-color: #e2e2e2;
+  margin: 1rem 0;
+`;
