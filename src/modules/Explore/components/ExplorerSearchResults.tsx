@@ -1,22 +1,13 @@
 import { Box, Grid, Toolbar } from '@mui/material';
-import { useQuery } from 'react-query';
 import { RecipeCard } from '../../../components/RecipeCard';
+import { useComplexSearch } from '../../../hooks/useComplexSearch';
 import { Recipe } from '../../../types';
 import { Loading } from '../../Loading/Loading';
 import { EXPLORE_SIDE_PANEL_WIDTH } from '../consts';
 import { Filters } from './types';
 
 export const ExplorerSearchResults = ({ filters }: { filters: Filters }) => {
-  const { type, diet } = filters;
-  const { data: { results: recipes } = {}, isFetching } = useQuery(
-    ['recipes', 'complexSearch', filters],
-    async () => {
-      const res = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=3a919f863b6f473e93b2473cdd0b6e3d&type=${type}&diet=${diet}`,
-      );
-      return res.json();
-    },
-  );
+  const { data: { results: recipes } = {}, isFetching } = useComplexSearch(filters);
 
   return (
     <Box
