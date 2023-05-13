@@ -5,15 +5,12 @@ import styled from 'styled-components';
 export const ExploreButton = () => {
   return (
     <RouteLink to='/explore'>
-      <ExploreMoreButton variant='contained'>Explore More</ExploreMoreButton>
+      <Button variant='contained'>Explore More</Button>
     </RouteLink>
   );
 };
 
 const RouteLink = styled(Link)`
   text-decoration: none;
-`;
-
-const ExploreMoreButton = styled(Button)`
   margin-top: 10px;
 `;
