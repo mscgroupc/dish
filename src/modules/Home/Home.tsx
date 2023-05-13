@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
 import { HomeRecipeCard } from './components/HomeRecipeCard';
-import { ExploreButton } from './components/ExploreButton';
+// import { ExploreButton } from './components/ExploreButton';
 
 export const Home = () => {
   return (
@@ -19,7 +19,7 @@ export const Home = () => {
           let your taste buds take the lead!
         </Typography>
         <HomeRecipeCard />
-        <ExploreButton />
+        {/* <ExploreButton /> */}
       </ContentDiv>
     </RootDiv>
   );
