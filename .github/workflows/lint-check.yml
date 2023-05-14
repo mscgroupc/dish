@@ -30,3 +30,4 @@ jobs:
           if [ ${{ job.status }} == 'failure' ]; then
             echo "Lint and format check failed. Please address the issues before resubmitting the pull request."
             exit 1
+          fi

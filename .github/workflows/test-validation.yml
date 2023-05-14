@@ -30,3 +30,4 @@ jobs:
           if [ ${{ job.status }} == 'failure' ]; then
             echo "Test results indicate failures.. Please address the failures before resubmitting.."
             exit 1
+          fi
