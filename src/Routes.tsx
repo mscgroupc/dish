@@ -12,6 +12,10 @@ const router = createBrowserRouter([
     path: '/dish/explore',
     element: <Explore />,
   },
+  {
+    path: '*',
+    element: <Home />,
+  },
 ]);
 
 export const Routers = () => (
