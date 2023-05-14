@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export const ExploreButton = () => {
   return (
-    <RouteLink to='/explore'>
+    <RouteLink to='/dish/explore'>
       <Button variant='contained'>Explore More</Button>
     </RouteLink>
   );
