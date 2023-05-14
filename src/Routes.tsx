@@ -5,13 +5,17 @@ import { Home } from './modules/Home/Home'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/dish',
     element: <Home />,
   },
   {
-    path: '/explore',
+    path: '/dish/explore',
     element: <Explore />,
   },
+  {
+    path:'*',
+    element:<>Not Found</>
+  }
 ])
 
 export const Routers = () => (
