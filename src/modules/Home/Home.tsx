@@ -30,7 +30,7 @@ const RootDiv = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url('/katie-smith-uQs1802D0CQ-unsplash.jpg');
+  background-image: url('/dish/katie-smith-uQs1802D0CQ-unsplash.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

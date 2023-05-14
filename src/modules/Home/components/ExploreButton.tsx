@@ -4,13 +4,14 @@ import styled from 'styled-components';
 
 export const ExploreButton = () => {
   return (
-    <RouteLink to='/explore'>
-      <Button variant='contained'>Explore More</Button>
-    </RouteLink>
+    <Wrapper>
+      <Button component={Link} to='/dish/explore' variant='contained' color='primary'>
+        Go to Explore
+      </Button>
+    </Wrapper>
   );
 };
 
-const RouteLink = styled(Link)`
-  text-decoration: none;
+const Wrapper = styled.div`
   margin-top: 10px;
 `;
