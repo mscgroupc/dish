@@ -1,6 +1,6 @@
 export const apiConfig = {
   spoonacular: {
     baseUrl: 'https://api.spoonacular.com',
-    apiKey: '9032ff3df8d14b0ea82c6871bf149014',
+    apiKey: '63c48bc579074b54b6bc1be60924bff6',
   },
 };
