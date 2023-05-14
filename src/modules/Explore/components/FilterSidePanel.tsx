@@ -31,6 +31,7 @@ export const FilterSidePanel = ({
           <Divider />
 
           <List>
+            {/* ToDo(MSA0-31): add nuber filter */}
             <ListItem>
               <MealTypeFilter filters={filters} setFilters={setFilters} />
             </ListItem>
