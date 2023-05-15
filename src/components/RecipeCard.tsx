@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Card, CardActionArea, CardMedia, Grid, Typography } from '@mui/material';
-import { RecipeCardProps } from '../modules/Explore/components/types';
-import { useRecipeSummary } from '../hooks/useRecipeSummary';
+import { RecipeInformation } from '../types/RecipeInfromation';
 
-export const RecipeCard = ({ id, title, image }: RecipeCardProps) => {
+export const RecipeCard = ({ recipeInformations }: { recipeInformations: RecipeInformation }) => {
+  const { title, image, summary } = recipeInformations;
   const [expanded, setExpanded] = useState(false);
-
-  const { data: { summary } = {}, isFetching } = useRecipeSummary(id);
 
   const summaryMarkup = { __html: summary };
 
@@ -23,22 +21,18 @@ export const RecipeCard = ({ id, title, image }: RecipeCardProps) => {
           </Grid>
           <DividerDiv />
           <Typography variant='body2' color='textSecondary' component='p'>
-            {isFetching ? (
-              'Loading...'
-            ) : (
-              <>
-                <div
-                  dangerouslySetInnerHTML={
-                    expanded ? summaryMarkup : { __html: `${summary.substring(0, 200)}...` }
-                  }
-                />
-                {summary.length > 200 && (
-                  <span onClick={() => setExpanded(!expanded)}>
-                    {expanded ? 'Read less' : 'Read more'}
-                  </span>
-                )}
-              </>
-            )}
+            <>
+              <div
+                dangerouslySetInnerHTML={
+                  expanded ? summaryMarkup : { __html: `${summary.substring(0, 200)}...` }
+                }
+              />
+              {summary.length > 200 && (
+                <span onClick={() => setExpanded(!expanded)}>
+                  {expanded ? 'Read less' : 'Read more'}
+                </span>
+              )}
+            </>
           </Typography>
         </ContentDiv>
       </CardActionArea>

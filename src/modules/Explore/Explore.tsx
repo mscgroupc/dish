@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Filters } from './components/types';
 
 export const Explore = () => {
-  const [filters, setFilters] = useState<Filters>({ type: undefined, diet: undefined });
+  const [filters, setFilters] = useState<Filters>({ number: 2, type: undefined, diet: undefined });
 
   return (
     <Box sx={{ display: 'flex' }}>
