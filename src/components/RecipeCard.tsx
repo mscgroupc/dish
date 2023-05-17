@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import {Info} from '@mui/icons-material'; // Import the Info icon from Material-UI Icons
 import {RecipeInformation} from '../types/RecipeInfromation';
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInformation }) => {
     const {title, image, summary, extendedIngredients} = recipeInformations;
     const [expanded, setExpanded] = useState(false);
