@@ -1,106 +1,113 @@
 import styled from 'styled-components';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-    Card,
-    CardActionArea,
-    CardMedia,
-    Grid,
-    Typography,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    Tabs, Tab, Button, DialogActions
+  Card,
+  CardActionArea,
+  CardMedia,
+  Grid,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Tabs,
+  Tab,
+  Button,
+  DialogActions,
 } from '@mui/material';
-import {Info} from '@mui/icons-material'; // Import the Info icon from Material-UI Icons
-import {RecipeInformation} from '../types/RecipeInfromation';
+import { Info } from '@mui/icons-material'; // Import the Info icon from Material-UI Icons
+import { RecipeInformation } from '../types/RecipeInfromation';
 
-export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInformation }) => {
-    const {title, image, summary, extendedIngredients} = recipeInformations;
-    const [expanded, setExpanded] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [tabValue, setTabValue] = useState(0);
+export const RecipeCard = ({ recipeInformations }: { recipeInformations: RecipeInformation }) => {
+  const { title, image, summary, extendedIngredients } = recipeInformations;
+  const [expanded, setExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [tabValue, setTabValue] = useState(0);
 
-    const summaryMarkup = {__html: summary};
+  const summaryMarkup = { __html: summary };
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        setTabValue(newValue);
-    };
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
-    return (
-        <RootCard>
-            <CardActionArea>
-                <MediaCardMedia image={image} title={title}/>
-                <ContentDiv>
-                    <Grid container alignItems='center'>
-                        <Grid item xs>
-                            <TitleTypography variant='h5'>{title}</TitleTypography>
-                            <IconWrapper>
-                                <InfoIcon onClick={handleOpen}/>
-                            </IconWrapper>
-                        </Grid>
-                    </Grid>
-                    <DividerDiv/>
-                    <Typography variant='body2' color='textSecondary' component='p'>
-                        <>
-                            <div
-                                dangerouslySetInnerHTML={
-                                    expanded ? summaryMarkup : {__html: `${summary.substring(0, 200)}...`}
-                                }
-                            />
-                            {summary.length > 200 && (
-                                <span onClick={() => setExpanded(!expanded)}>
+  return (
+    <RootCard>
+      <CardActionArea>
+        <MediaCardMedia image={image} title={title} />
+        <ContentDiv>
+          <Grid container alignItems='center'>
+            <Grid item xs>
+              <TitleTypography variant='h5'>{title}</TitleTypography>
+              <IconWrapper>
+                <InfoIcon onClick={handleOpen} />
+              </IconWrapper>
+            </Grid>
+          </Grid>
+          <DividerDiv />
+          <Typography variant='body2' color='textSecondary' component='p'>
+            <>
+              <div
+                dangerouslySetInnerHTML={
+                  expanded ? summaryMarkup : { __html: `${summary.substring(0, 200)}...` }
+                }
+              />
+              {summary.length > 200 && (
+                <span onClick={() => setExpanded(!expanded)}>
                   {expanded ? 'Read less' : 'Read more'}
                 </span>
-                            )}
-                        </>
-                    </Typography>
-                </ContentDiv>
-            </CardActionArea>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>{title}</DialogTitle>
-                <Tabs value={tabValue} onChange={handleTabChange}>
-                    <Tab label="Summary" />
-                    <Tab label="Shopping List" />
-                </Tabs>
-                <DialogContent>
-                    {tabValue === 0 && (
-                        <Typography variant="body1" color="textPrimary" component="p" dangerouslySetInnerHTML={summaryMarkup} />
-                    )}
-                    {tabValue === 1 && (
-                        <Typography variant="body1" color="textPrimary" component="p">
-                            <div>
-                                {extendedIngredients.map((ingredient, index) => (
-                                    <div className="card" key={index}>
-                                        <div className="card-body">
-                                            <h3 className="card-title">{ingredient.name}</h3>
-                                            <p className="card-text">
-                                                Original Name: {ingredient.originalName} <br />
-                                                Amount: {ingredient.amount} {ingredient.unit}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </Typography>
-                    )}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                </DialogActions>
-            </Dialog>
-
-        </RootCard>
-    );
+              )}
+            </>
+          </Typography>
+        </ContentDiv>
+      </CardActionArea>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{title}</DialogTitle>
+        <Tabs value={tabValue} onChange={handleTabChange}>
+          <Tab label='Summary' />
+          <Tab label='Shopping List' />
+        </Tabs>
+        <DialogContent>
+          {tabValue === 0 && (
+            <Typography
+              variant='body1'
+              color='textPrimary'
+              component='p'
+              dangerouslySetInnerHTML={summaryMarkup}
+            />
+          )}
+          {tabValue === 1 && (
+            <Typography variant='body1' color='textPrimary' component='p'>
+              <div>
+                {extendedIngredients.map((ingredient, index) => (
+                  <div className='card' key={index}>
+                    <div className='card-body'>
+                      <h3 className='card-title'>{ingredient.name}</h3>
+                      <p className='card-text'>
+                        Original Name: {ingredient.originalName} <br />
+                        Amount: {ingredient.amount} {ingredient.unit}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color='primary'>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </RootCard>
+  );
 };
 
 const RootCard = styled(Card)`
