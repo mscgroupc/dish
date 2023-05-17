@@ -3,4 +3,5 @@ export type Filters = {
   type: string | undefined;
   diet: string | undefined;
   cuisines: string[];
+  intolerances: string[];
 };

@@ -11,6 +11,7 @@ export const Explore = () => {
     type: undefined,
     diet: undefined,
     cuisines: [],
+    intolerances: [],
   });
 
   return (
