@@ -1,43 +1,73 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import { Card, CardActionArea, CardMedia, Grid, Typography } from '@mui/material';
-import { RecipeInformation } from '../types/RecipeInfromation';
+import {useState} from 'react';
+import {
+    Card,
+    CardActionArea,
+    CardMedia,
+    Grid,
+    Typography,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions
+} from '@mui/material';
+import {Info} from '@mui/icons-material'; // Import the Info icon from Material-UI Icons
+import {RecipeInformation} from '../types/RecipeInfromation';
 
-export const RecipeCard = ({ recipeInformations }: { recipeInformations: RecipeInformation }) => {
-  const { title, image, summary } = recipeInformations;
-  const [expanded, setExpanded] = useState(false);
+export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInformation }) => {
+    const {title, image, summary} = recipeInformations;
+    const [expanded, setExpanded] = useState(false);
+    const [open, setOpen] = useState(false);
 
-  const summaryMarkup = { __html: summary };
+    const summaryMarkup = {__html: summary};
 
-  return (
-    <RootCard>
-      <CardActionArea>
-        <MediaCardMedia image={image} title={title} />
-        <ContentDiv>
-          <Grid container alignItems='center'>
-            <Grid item xs>
-              <TitleTypography variant='h5'>{title}</TitleTypography>
-            </Grid>
-          </Grid>
-          <DividerDiv />
-          <Typography variant='body2' color='textSecondary' component='p'>
-            <>
-              <div
-                dangerouslySetInnerHTML={
-                  expanded ? summaryMarkup : { __html: `${summary.substring(0, 200)}...` }
-                }
-              />
-              {summary.length > 200 && (
-                <span onClick={() => setExpanded(!expanded)}>
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    return (
+        <RootCard>
+            <CardActionArea>
+                <MediaCardMedia image={image} title={title}/>
+                <ContentDiv>
+                    <Grid container alignItems='center'>
+                        <Grid item xs>
+                            <TitleTypography variant='h5'>{title}</TitleTypography>
+                            <IconWrapper>
+                                <InfoIcon onClick={handleOpen}/>
+                            </IconWrapper>
+                        </Grid>
+                    </Grid>
+                    <DividerDiv/>
+                    <Typography variant='body2' color='textSecondary' component='p'>
+                        <>
+                            <div
+                                dangerouslySetInnerHTML={
+                                    expanded ? summaryMarkup : {__html: `${summary.substring(0, 200)}...`}
+                                }
+                            />
+                            {summary.length > 200 && (
+                                <span onClick={() => setExpanded(!expanded)}>
                   {expanded ? 'Read less' : 'Read more'}
                 </span>
-              )}
-            </>
-          </Typography>
-        </ContentDiv>
-      </CardActionArea>
-    </RootCard>
-  );
+                            )}
+                        </>
+                    </Typography>
+                </ContentDiv>
+            </CardActionArea>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>{title}</DialogTitle>
+                <DialogContent>
+                    <Typography variant="body1" color="textPrimary" component="p" dangerouslySetInnerHTML={summaryMarkup} />
+                </DialogContent>
+            </Dialog>
+        </RootCard>
+    );
 };
 
 const RootCard = styled(Card)`
@@ -70,4 +100,15 @@ const DividerDiv = styled.div`
   height: 2px;
   background-color: #e2e2e2;
   margin: 1rem 0;
+`;
+
+const IconWrapper = styled.span`
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+`;
+
+const InfoIcon = styled(Info)`
+  color: #777;
+  margin-right: 0.2rem;
 `;
