@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {
     Card,
     CardActionArea,
@@ -10,7 +10,8 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogActions
+    DialogActions,
+    Tabs, Tab, Box
 } from '@mui/material';
 import {Info} from '@mui/icons-material'; // Import the Info icon from Material-UI Icons
 import {RecipeInformation} from '../types/RecipeInfromation';
@@ -19,6 +20,7 @@ export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInf
     const {title, image, summary} = recipeInformations;
     const [expanded, setExpanded] = useState(false);
     const [open, setOpen] = useState(false);
+    const [tabValue, setTabValue] = useState(0);
 
     const summaryMarkup = {__html: summary};
 
@@ -28,6 +30,10 @@ export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInf
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+        setTabValue(newValue);
     };
 
     return (
@@ -62,8 +68,18 @@ export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInf
             </CardActionArea>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{title}</DialogTitle>
+                <Tabs value={tabValue} onChange={handleTabChange}>
+                    <Tab label="Summary"/>
+                    <Tab label="Shopping List"/>
+                </Tabs>
                 <DialogContent>
-                    <Typography variant="body1" color="textPrimary" component="p" dangerouslySetInnerHTML={summaryMarkup} />
+                    {tabValue === 0 &&
+                        <Typography variant="body1" color="textPrimary" component="p"
+                                    dangerouslySetInnerHTML={summaryMarkup}/>
+                    }
+                    {tabValue === 1 &&
+                            <Typography variant="body1" color="textPrimary" component="p">Details...</Typography>
+                    }
                 </DialogContent>
             </Dialog>
         </RootCard>
