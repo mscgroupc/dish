@@ -13,6 +13,7 @@ export type RecipeInformation = {
   healthScore: number;
   spoonacularScore: number;
   pricePerServing: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   analyzedInstructions: any[]; // Replace 'any' with the appropriate type
   cheap: boolean;
   creditsText: string;

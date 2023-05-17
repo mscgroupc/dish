@@ -1,1 +1,2 @@
 export const EXPLORE_SIDE_PANEL_WIDTH = 240;
+export const DEFAULT_RESULTS_COUNT = 16;

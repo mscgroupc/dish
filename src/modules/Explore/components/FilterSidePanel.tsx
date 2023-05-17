@@ -2,6 +2,7 @@ import { Box, Divider, Drawer, List, ListItem, Toolbar } from '@mui/material';
 import { EXPLORE_SIDE_PANEL_WIDTH } from '../consts';
 import { DietFilter } from './Filters/DietFilter';
 import { MealTypeFilter } from './Filters/MealTypeFilter';
+import { ResultCountFilter } from './Filters/ResultCountFilter';
 import { Filters } from './types';
 
 export const FilterSidePanel = ({
@@ -32,6 +33,9 @@ export const FilterSidePanel = ({
 
           <List>
             {/* ToDo(MSA0-31): add nuber filter */}
+            <ListItem>
+              <ResultCountFilter filters={filters} setFilters={setFilters} />
+            </ListItem>
             <ListItem>
               <MealTypeFilter filters={filters} setFilters={setFilters} />
             </ListItem>
