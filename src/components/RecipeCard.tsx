@@ -6,18 +6,16 @@ import {
     CardMedia,
     Grid,
     Typography,
-    Button,
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogActions,
-    Tabs, Tab, Box
+    Tabs, Tab, Button, DialogActions
 } from '@mui/material';
 import {Info} from '@mui/icons-material'; // Import the Info icon from Material-UI Icons
 import {RecipeInformation} from '../types/RecipeInfromation';
 
 export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInformation }) => {
-    const {title, image, summary} = recipeInformations;
+    const {title, image, summary, extendedIngredients} = recipeInformations;
     const [expanded, setExpanded] = useState(false);
     const [open, setOpen] = useState(false);
     const [tabValue, setTabValue] = useState(0);
@@ -69,19 +67,38 @@ export const RecipeCard = ({recipeInformations}: { recipeInformations: RecipeInf
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{title}</DialogTitle>
                 <Tabs value={tabValue} onChange={handleTabChange}>
-                    <Tab label="Summary"/>
-                    <Tab label="Shopping List"/>
+                    <Tab label="Summary" />
+                    <Tab label="Shopping List" />
                 </Tabs>
                 <DialogContent>
-                    {tabValue === 0 &&
-                        <Typography variant="body1" color="textPrimary" component="p"
-                                    dangerouslySetInnerHTML={summaryMarkup}/>
-                    }
-                    {tabValue === 1 &&
-                            <Typography variant="body1" color="textPrimary" component="p">Details...</Typography>
-                    }
+                    {tabValue === 0 && (
+                        <Typography variant="body1" color="textPrimary" component="p" dangerouslySetInnerHTML={summaryMarkup} />
+                    )}
+                    {tabValue === 1 && (
+                        <Typography variant="body1" color="textPrimary" component="p">
+                            <div>
+                                {extendedIngredients.map((ingredient, index) => (
+                                    <div className="card" key={index}>
+                                        <div className="card-body">
+                                            <h3 className="card-title">{ingredient.name}</h3>
+                                            <p className="card-text">
+                                                Original Name: {ingredient.originalName} <br />
+                                                Amount: {ingredient.amount} {ingredient.unit}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </Typography>
+                    )}
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                </DialogActions>
             </Dialog>
+
         </RootCard>
     );
 };
