@@ -10,6 +10,7 @@ export const Explore = () => {
     number: DEFAULT_RESULTS_COUNT,
     type: undefined,
     diet: undefined,
+    cuisines: [],
   });
 
   return (
