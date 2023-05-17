@@ -1,1 +1,7 @@
-export type Filters = { number: number; type: string | undefined; diet: string | undefined };
+export type Filters = {
+  number: number;
+  type: string | undefined;
+  diet: string | undefined;
+  cuisines: string[];
+  intolerances: string[];
+};

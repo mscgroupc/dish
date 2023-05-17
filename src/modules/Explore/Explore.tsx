@@ -3,9 +3,16 @@ import { FilterSidePanel } from './components/FilterSidePanel';
 import { ExplorerSearchResults } from './components/ExplorerSearchResults';
 import { useState } from 'react';
 import { Filters } from './components/types';
+import { DEFAULT_RESULTS_COUNT } from './consts';
 
 export const Explore = () => {
-  const [filters, setFilters] = useState<Filters>({ number: 2, type: undefined, diet: undefined });
+  const [filters, setFilters] = useState<Filters>({
+    number: DEFAULT_RESULTS_COUNT,
+    type: undefined,
+    diet: undefined,
+    cuisines: [],
+    intolerances: [],
+  });
 
   return (
     <Box sx={{ display: 'flex' }}>
